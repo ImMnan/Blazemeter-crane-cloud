@@ -1,6 +1,6 @@
 ---
 
-- name: 'Creating an agent into the Blazemeter-cloud private location'
+- name: 'Creating an agent into the Blazemeter-SaaS private location [As per the declared Harbour ID]'
   uri:
     url: "https://a.blazemeter.com/api/v4/private-locations/{{harbour_ID}}/servers"
     method: POST
@@ -15,17 +15,17 @@
     status_code: 201, 208, 200
   register: resultjson
 
-- name: '** getting the ship id'
+- name: ' Extracting the Ship ID from the JSON Body... '
   set_fact:
     ship_ID: "{{ resultjson | json_query(jmesquery) }}"
   vars:
     jmesquery: "json.result.id"
 
-- name: 'Lets debug this'
+- name: ' This is your Ship ID = '
   debug:
     msg: "{{ship_ID}}"
          
-- name: 'Generating Docker command'
+- name: 'Generating Docker command (Utilising Auth-token, Harbour ID, Ship ID & Env variables)...'
   uri:
     url: "https://a.blazemeter.com/api/v4/private-locations/{{harbour_ID}}/ships/{{ship_ID}}/docker-command"
     method: POST
@@ -36,17 +36,17 @@
     status_code: 201, 208, 200
   register: result2
 
-- name: '** Getting the docker command'
+- name: ' Extracting docker command from the JSON Body...'
   set_fact:
     cmd_docker: "{{ result2 | json_query(jmesquery) }}"
   vars:
     jmesquery: "json.result.dockerCommand"
 
-- name: 'Lets debug this too'
+- name: ' Here is the Docker command = '
   debug:
     msg: "{{cmd_docker}}"
   
-- name: "Executing docker command"
+- name: "Finally, executing the docker command!"
   shell: "{{cmd_docker}}"
 
      
