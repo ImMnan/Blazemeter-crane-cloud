@@ -96,7 +96,7 @@ resource "aws_instance" "web" {
 /* Running Ansible-playbook command through our local machine, using the myhosts as inventory file, ubuntu as user and wbkey.pem as private key. All satisfied using local variables */
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i myhosts --user ${local.ssh_user} --private-key ${local.private_key_path} bm_agent.yml"
+    command = "ansible-playbook -i myhosts --user ${local.ssh_user} --private-key ${local.private_key_path} bm-engine.yml"
   }
 
 }

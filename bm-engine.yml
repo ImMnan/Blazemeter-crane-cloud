@@ -9,23 +9,9 @@
       msg: "{{ansible_distribution}}"
  
   - name: "Initiating Docker installation first..." 
-    import_tasks: tasks/docker-ubuntu.yml
-    when: (ansible_facts['distribution'] == "ubuntu"
-
-  - name: "Does not seem to be the correct version to run this playbook!!"
-    debug:
-      msg: "Please make sure the OS is Ubuntu"
-    when: (ansible_facts['distribution'] != "ubuntu"
+    import_tasks: plays/docker-ubuntu.yml
 
   - name: "Creating agent and deploying Blazemeter-crane Docker containers into the machine..."
-    block: 
-      import_tasks: tasks/bm-agent.yml
-  
-
-    rescue: 
-      debug:
-        msg: "There seems to be an error!"  
-
-
+    import_tasks: plays/bm-agent.yml
 
 

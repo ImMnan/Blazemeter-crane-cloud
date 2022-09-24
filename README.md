@@ -1,2 +1,5 @@
 # Blazemeter-crane-cloud
 Terraform + Ansible playbook to automate resource creation, provisioning, configuration with Docker and setting up Blazemeter crane docker container. The scripts will also make sure that the agent is created within your private location. 
+
+
+fatal: [35.174.105.63]: FAILED! => {"msg": "The conditional check '(ansible_facts['distribution'] == \"ubuntu\"' failed. The error was: template error while templating string: unexpected '}', expected ')'. String: {% if (ansible_facts['distribution'] == \"ubuntu\" %} True {% else %} False {% endif %}\n\nThe error appears to be in '/home/labsuser/Blazemeter-crane-cloud/plays/docker-ubuntu.yml': line 3, column 3, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n- name: Install aptitude\n  ^ here\n"}
