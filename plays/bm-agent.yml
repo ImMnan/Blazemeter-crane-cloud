@@ -1,0 +1,55 @@
+---
+
+- vars_files: default/vars.yml
+  
+  tasks:
+  - name: 'Creating an agent into the Blazemeter-cloud private location'
+    uri:
+      url: "https://a.blazemeter.com/api/v4/private-locations/{{harbour_ID}}/servers"
+      method: POST
+      body:
+        name: "{{agent_Name}}"
+        address: 'Just an address'
+      body_format: json
+      headers:
+        Content-Type: application/json
+      url_username: "{{api_key_id}}"
+      url_password: "{{api_key_secret}}"
+      status_code: 201, 208, 200
+    register: resultjson
+
+  - name: '** getting the ship id'
+    set_fact:
+      ship_ID: "{{ resultjson | json_query(jmesquery) }}"
+    vars:
+      jmesquery: "json.result.id"
+
+  - name: 'Lets debug this'
+    debug:
+      msg: "{{ship_ID}}"
+         
+  - name: 'Generating Docker command'
+    uri:
+      url: "https://a.blazemeter.com/api/v4/private-locations/{{harbour_ID}}/ships/{{ship_ID}}/docker-command"
+      method: POST
+      headers:
+        Content-Type: application/json
+      url_username: '{{api_key_id}}'
+      url_password: '{{api_key_secret}}'
+      status_code: 201, 208, 200
+    register: result2
+
+  - name: '** Getting the docker command'
+    set_fact:
+      cmd_docker: "{{ result2 | json_query(jmesquery) }}"
+    vars:
+      jmesquery: "json.result.dockerCommand"
+
+  - name: 'Lets debug this too'
+    debug:
+      msg: "{{cmd_docker}}"
+    
+  - name: "Executing docker command"
+    shell: "{{cmd_docker}}"
+
+     
