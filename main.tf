@@ -18,7 +18,7 @@ provider "aws" {
   token = "[AWS token]"
 }
 
-/* Creating a security group with the name of bmaccess and setting ingress egress security rules, it will automatically use the vac id from variables declared in local. */
+/* [4.1] Creating a security group with the name of bmaccess and setting ingress egress security rules, it will automatically use the vac id from variables declared in local. */
 
 resource "aws_security_group" "bmaccess" {
   name   = "bmaccess"
@@ -51,7 +51,6 @@ resource "aws_security_group" "bmaccess" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
 # Resource creation using local variables - ami, security group and key. 
 
 resource "aws_instance" "web" {
@@ -65,7 +64,6 @@ resource "aws_instance" "web" {
     Name = "bm ec2"
   }
 
-
   /* Setting up connection as we want to use ssh for Ansible configurations to run. Again using local variables for host ip, user name, and security key */
 
   connection {
@@ -76,7 +74,6 @@ resource "aws_instance" "web" {
     timeout = "4m"
   }
 
-
 # Just to confirm whether our remote access is working
 
   provisioner "remote-exec" {
@@ -85,13 +82,11 @@ resource "aws_instance" "web" {
     ]
   }
 
-
 /* copying the remote machine ip to our local machine into my hosts file using local-exec */
 
   provisioner "local-exec" {
-    command = "echo ${self.public_ip} > myhosts"
+    command = "echo ${self.public_ip} >> myhosts"
   }
-
 
 /* Running Ansible-playbook command through our local machine, using the myhosts as inventory file, ubuntu as user and wbkey.pem as private key. All satisfied using local variables */
 
@@ -101,9 +96,7 @@ resource "aws_instance" "web" {
 
 }
 
-
 # Saving the output.
-
 output "instance_ip" {
   value = aws_instance.web.public_ip
 }

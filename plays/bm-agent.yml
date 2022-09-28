@@ -13,11 +13,11 @@
     url_username: "{{api_key_id}}"
     url_password: "{{api_key_secret}}"
     status_code: 201, 208, 200
-  register: resultjson
+  register: result
 
 - name: ' Extracting the Ship ID from the JSON Body... '
   set_fact:
-    ship_ID: "{{ resultjson | json_query(jmesquery) }}"
+    ship_ID: "{{ result | json_query(jmesquery) }}"
   vars:
     jmesquery: "json.result.id"
 

@@ -1,6 +1,7 @@
 ---
 
-harbour_ID: {{ Harbour ID of your Private location }}
-agent_Name: {{ Agent_name }}
-api_key_id: {{ Blazemeter api key }}
-api_key_secret: {{ Blazemeter api secret }}
+harbour_ID: [ Harbour ID of your Private location ]
+agent_Name: [ Agent_name ]
+api_key_id: [ Blazemeter api key ]
+api_key_secret: [ Blazemeter api secret ]
+
