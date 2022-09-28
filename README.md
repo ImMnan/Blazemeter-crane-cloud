@@ -21,6 +21,7 @@ Below are the list of things these scripts will do:
 
 Within 10-15 mins, you will have your desired number of agents running, skipping all manual work.
 
+
 [2.0] Pre-requisites
 
 • Blazemeter account (Admin access)
@@ -35,6 +36,7 @@ Within 10-15 mins, you will have your desired number of agents running, skipping
     $ ansible —version
     
 
+
 [3.0] Configurations
 
 [3.1] AWS keys (Refer to the figure below)
@@ -48,11 +50,13 @@ Within 10-15 mins, you will have your desired number of agents running, skipping
 7. Change the permission of the key using $ chmod 400 [key-path] 
 
 
+
 [3.2] VPC ID (AWS)
 
 1. Login to AWS account,
 2. Navigate to VPC section > click on VPCs section on the VPC dashboard to open the VPC panel.
 3. Simply copy the VPC ID from here. 
+
 
 
 [3.3] AWS or Cloud provider (IAM) api keys
@@ -62,6 +66,7 @@ Make sure you go through your Cloud provider documentation to create these key p
 • Access key
 • Secret key
 • Secret token
+
 
 [3.4] Blazemeter API key creation
 
@@ -83,9 +88,12 @@ Harbor ID: Located under Private Location Details, under the Id column (indicate
 See Blazemeter guide here.
 *Note: These details will be required in vars.yml file (see [4.3])
 
+
+
 [4.0] Scripts [guide to making changes]
 
 Make appropriate changes to the script to fit your organisational policy or individual goals.
+
 
 [4.1] Terraform - main.tf
 
@@ -95,6 +103,7 @@ Declare the provider and other required information linked with it, access key, 
 Now within the security group creation, make sure to setup a correct network policy. I have kept this very open with rules that I have setup. However, these tend to change when instance is being created on an enterprise level.
 It is possible to write a different terraform script entirely, however, make sure to record the private IPs of the created instance into a file (using >>, >, etc.) (So that it can be later used as an inventory file)
 
+
 [4.2] Ansible - bm-engine.yml
 
 This is a very simple yaml file, invoking other yaml files based on the order of these tasks and facts gathered initially.
@@ -102,9 +111,11 @@ The file will also declare the hosts and a variable file.
 Moreover based on the OS of the VM, it will call the playbook to setup Docker.
 The file can be run directly, If you want to bypass terraform- instance creation, considering that you already have an instance/s ready. (See [5.0])
    
+
 [4.3] Ansible - default/vars.yml
 
 This is a var file, as the name suggests. Here we will need to add the variables as per our Blazemeter account. API keys and secret. (see [3.4]) and Harbour_ID (see [3.5])
+
 
 [4.4] Ansible - plays/docker-ubuntu.yml & plays/docker-rhel.yml
 
@@ -113,28 +124,33 @@ This file can be ignored if Docker is already setup on your machine. However, if
 Moreover, the bm-agent.yml file is triggered through these files, hence ignoring this file will skip the bm-agent.yml file (Which is the main file in this configuration)
 Therefore, if you ignore this file, make sure to run the bm-agent.yml file separately (In that case you will need to trigger the file through the bm-engine.yml).
 
+
 [4.5] Ansible - plays/bm-agent.yml
 
 This is the main file, responsible for creating a Blazemeter agent on SaaS and pulling + running the docker container Blazemeter-crane) within our Machine (VM/EC2 or any remote machine on cloud.). The file will also print out the docker command, in case you wish to make additional changes to the docker command. If none, the file will automatically run the generated command.
 *Note: This file need not be modified. If modification is required, make the changes carefully.
   
 
+
 [5.0] Run
 
 All well set, ready to apply this.
 
 If you are want to use all the features, terraform resource creation and ansible configuration, use these commands.
-    $ terraform init
-    $ terraform validate $ terraform plan
-    $ terraform apply
+-   $ terraform init
+-   $ terraform validate 
+-   $ terraform plan
+-   $ terraform apply
 
 If you already have the machines running, you can run the ansible-playbook.
-    $ ansible-playbook -i [inventory_file] —user [username] —private-key [key_path] bm-engine.yml
+-  $ ansible-playbook -i [inventory_file] —user [username] —private-key [key_path] bm-engine.yml
 
 Now, wait and let the script do it’s thing. 
 
 
+
 [6.0] Known issues
+
 
 [6.1] Issues with CentOS
 
@@ -145,8 +161,9 @@ FAILED! => {"changed": false, "msg": "Failed to download metadata for repo 'apps
 CentOS Linux 8 had reached the End Of Life (EOL) on December 31st, 2021. It means that CentOS 8 will no longer receive development resources from the official CentOS project. After Dec 31st, 2021, if you need to update your CentOS, you need to change the mirrors to vault.centos.org where they will be archived permanently. Alternatively, you may want to upgrade to CentOS Stream.
 
 Step 1: Go to the /etc/yum.repos.d/ directory. $ cd /etc/yum.repos.d/
-Step 2: Run the below commands
+
+- Step 2: Run the below commands
     $ sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
     $ sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/ CentOS-*
-    
+
 Step 3: Now run the yum update $ yum update -y
