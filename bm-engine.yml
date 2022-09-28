@@ -11,14 +11,10 @@
  
   - name: "Initiating Docker installation first..." 
     import_tasks: plays/docker-ubuntu.yml
-    when: ansible_distribution == "ubuntu"
+    when: ansible_os_family == "Debian"
 
   - name: "Initiating Docker installation for Rhel based system..."
     import_tasks: plays/docker-rhel.yml
     when: ansible_os_family == "RedHat"
-
-  - name: "Creating agent and deploying Blazemeter-crane Docker containers into the machine..."
-    import_tasks: plays/bm-agent.yml
-
 
  
