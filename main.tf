@@ -4,8 +4,8 @@ locals {
   ami_id = "ami-09e67e426f25ce0d7"
   vpc_id = "[vpc id]"
   ssh_user = "ubuntu"
-  key_name = "bmkey"
-  private_key_path = "/home/labsuser/bmkey.pem"
+  key_name = "bmkey"     # the name should match with the name on cloud
+  private_key_path = "/home/labsuser/bmkey.pem" 
 }
 
 /* Declare the provider and other required information linked with it, access key, secret key and token as per AWS 

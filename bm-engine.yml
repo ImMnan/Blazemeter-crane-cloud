@@ -5,10 +5,7 @@
   vars_files: default/vars.yml
   
   tasks: 
-  - debug:
-      - msg: "{{ansible_distribution}}"
-      - msg: "{{ansible_os_family}}"
- 
+
   - name: "Initiating Docker installation first..." 
     import_tasks: plays/docker-ubuntu.yml
     when: ansible_os_family == "Debian"
