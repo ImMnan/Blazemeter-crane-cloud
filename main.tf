@@ -9,7 +9,7 @@ locals {
 }
 
 /* Declare the provider and other required information linked with it, access key, secret key and token as per AWS 
-(Or any cloud provider you are using) */
+(Any cloud provider you are using) */
 
 provider "aws" {
   region     = "us-east-1"

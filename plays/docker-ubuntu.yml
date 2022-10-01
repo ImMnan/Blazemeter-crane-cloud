@@ -1,6 +1,6 @@
 ---
 
-- name: Install aptitude
+- name: Install aptitude!
   apt:
     name: aptitude
     state: latest

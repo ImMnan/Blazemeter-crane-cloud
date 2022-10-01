@@ -1,6 +1,6 @@
 ---
 
-- name: 'Creating an agent into the Blazemeter-SaaS private location [As per the declared Harbour ID]'
+- name: 'Creating an agent into the Blazemeter-SaaS private location [As per the declared Harbour ID for BM account]'
   uri:
     url: "https://a.blazemeter.com/api/v4/private-locations/{{harbour_ID}}/servers"
     method: POST

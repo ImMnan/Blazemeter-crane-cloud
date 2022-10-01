@@ -6,7 +6,7 @@
   
   tasks: 
 
-  - name: "Initiating Docker installation first..." 
+  - name: "Initiating Docker installation first as per the OS..." 
     import_tasks: plays/docker-ubuntu.yml
     when: ansible_os_family == "Debian"
 
