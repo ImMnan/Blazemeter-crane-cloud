@@ -3,7 +3,7 @@ Index
 2. Pre-requisites
 3. Configurations
 4. Scripts
-5. Run
+5. Execution
 6. Know issues
 
 [1.0] Introduction
@@ -132,7 +132,7 @@ This is the main file, responsible for creating a Blazemeter agent on SaaS and p
   
 
 
-[5.0] Run
+[5.0] Execution
 
 All well set, ready to apply this.
 
