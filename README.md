@@ -1,4 +1,4 @@
-Index
+Index:
 1. Introduction
 2. Pre-requisites
 3. Configurations
