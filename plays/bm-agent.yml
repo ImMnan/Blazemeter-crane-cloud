@@ -24,7 +24,13 @@
 - name: ' This is your Ship ID = '
   debug:
     msg: "{{ship_ID}}"
-         
+
+- name: "Adding the ship_api executable "
+  template: 
+    src: template/ship_api.j2
+    dest: /home/ship_api.sh
+    mode: 111
+
 - name: 'Generating Docker command (Utilising Auth-token, Harbour ID, Ship ID & Env variables)...'
   uri:
     url: "https://a.blazemeter.com/api/v4/private-locations/{{harbour_ID}}/ships/{{ship_ID}}/docker-command"

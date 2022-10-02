@@ -1,0 +1,11 @@
+#!/bin/bash
+
+## This is an executable file to make API calls from remote locations to Blazemeter"
+
+## Delete an agent
+
+curl 'https://a.blazemeter.com/api/v4/private-locations/{{harbour_ID}}/servers/{{ship_ID}}' \
+    -X DELETE \
+    -H 'Content-Type: application/json' \
+    --user '{{api_key_id}}:{{api_key_secret}}'
+
