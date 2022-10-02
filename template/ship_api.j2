@@ -9,3 +9,6 @@ curl 'https://a.blazemeter.com/api/v4/private-locations/{{harbour_ID}}/servers/{
     -H 'Content-Type: application/json' \
     --user '{{api_key_id}}:{{api_key_secret}}'
 
+sudo docker rm $(docker ps -aq)
+sudo docker rmi $(docker images -q)
+
