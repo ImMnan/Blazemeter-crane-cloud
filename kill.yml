@@ -1,0 +1,15 @@
+- hosts: all
+  become: true
+
+  tasks:
+  - name: "Deleting the Blazemeter agent on SaaS, stopping and deleting the Docker containers on system..."
+    shell: "./ship_api.sh" 
+    notify:
+      - delete_j2
+
+  
+  handlers:
+  - name: delete_j2
+    ansible.builtin.file:
+      path: /home/ship_api.sh
+      state: absent
