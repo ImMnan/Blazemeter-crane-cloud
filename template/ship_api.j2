@@ -9,6 +9,9 @@ curl 'https://a.blazemeter.com/api/v4/private-locations/{{harbour_ID}}/servers/{
     -H 'Content-Type: application/json' \
     --user '{{api_key_id}}:{{api_key_secret}}'
 
-sudo docker rm $(docker ps -aq)
-sudo docker rmi $(docker images -q)
+
+## Optional configurations to done if the VM needs to be cleaned thouroughly of any images (All docker images will be erased using this!)
+## sudo docker rm $(docker ps -aq)
+## sudo docker rmi $(docker images -q)
+
 

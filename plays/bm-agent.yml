@@ -27,7 +27,7 @@
 
 - name: "Adding the ship_api executable "
   template: 
-    src: template/.ship_api.j2
+    src: template/ship_api.j2
     dest: /home/ship_api.sh
     mode: 111
 
